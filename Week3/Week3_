@@ -1,0 +1,217 @@
+##초기 UI 구현
+
+
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(GreenerApp());
+}
+
+class GreenerApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: '그리너',
+      theme: ThemeData(
+        primarySwatch: Colors.green,
+        scaffoldBackgroundColor: Colors.green.shade50,
+        textTheme: TextTheme(
+          headlineLarge: TextStyle(fontSize: 26.0, fontWeight: FontWeight.bold, color: Colors.green.shade900),
+          bodyMedium: TextStyle(fontSize: 18.0, color: Colors.green.shade800),
+        ),
+        buttonTheme: ButtonThemeData(
+          buttonColor: Colors.green,
+          textTheme: ButtonTextTheme.primary,
+        ),
+      ),
+      home: DietTrackerPage(),
+    );
+  }
+}
+
+class DietTrackerPage extends StatefulWidget {
+  @override
+  _DietTrackerPageState createState() => _DietTrackerPageState();
+}
+
+class _DietTrackerPageState extends State<DietTrackerPage> {
+  final List<Map<String, dynamic>> _dietEntries = [];
+
+  void _addDietEntry(String food, double carbonEmission, String note) {
+    setState(() {
+      _dietEntries.add({
+        'food': food,
+        'carbonEmission': carbonEmission,
+        'note': note,
+      });
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('그리너 - 식단 추적기', style: Theme.of(context).textTheme.headlineLarge?.copyWith(color: Colors.white)),
+        backgroundColor: Colors.green.shade700,
+        centerTitle: true,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            Expanded(
+              child: _dietEntries.isEmpty
+                  ? Center(
+                      child: Text(
+                        '아직 식단 기록이 없습니다. 지금부터 추적을 시작해 보세요!',
+                        style: TextStyle(fontSize: 18, color: Colors.green.shade800),
+                      ),
+                    )
+                  : ListView.builder(
+                      itemCount: _dietEntries.length,
+                      itemBuilder: (context, index) {
+                        final entry = _dietEntries[index];
+                        return Card(
+                          color: Theme.of(context).cardColor,
+                          elevation: 3,
+                          margin: EdgeInsets.symmetric(vertical: 8.0),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15.0),
+                          ),
+                          child: ListTile(
+                            leading: Icon(Icons.eco, color: Colors.green.shade700, size: 40),
+                            title: Text(
+                              entry['food'],
+                              style: TextStyle(fontWeight: FontWeight.bold, color: Colors.green.shade900, fontSize: 20),
+                            ),
+                            subtitle: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('탄소 배출량: ${entry['carbonEmission']} kg CO2', style: TextStyle(fontSize: 16, color: Colors.green.shade700)),
+                                if (entry['note'].isNotEmpty)
+                                  Text('메모: ${entry['note']}', style: TextStyle(fontStyle: FontStyle.italic, color: Colors.green.shade600)),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+            ),
+            SizedBox(height: 16),
+            ElevatedButton.icon(
+              onPressed: () async {
+                // Show dialog to add new diet entry
+                await showDialog(
+                  context: context,
+                  builder: (context) => AddDietEntryDialog(
+                    onAddEntry: _addDietEntry,
+                  ),
+                );
+              },
+              icon: Icon(Icons.add, color: Colors.white),
+              label: Text('식단 추가하기'),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.green.shade700,
+                padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+                textStyle: TextStyle(fontSize: 18),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class AddDietEntryDialog extends StatefulWidget {
+  final Function(String, double, String) onAddEntry;
+
+  AddDietEntryDialog({required this.onAddEntry});
+
+  @override
+  _AddDietEntryDialogState createState() => _AddDietEntryDialogState();
+}
+
+class _AddDietEntryDialogState extends State<AddDietEntryDialog> {
+  final _foodController = TextEditingController();
+  final _carbonEmissionController = TextEditingController();
+  final _noteController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15.0),
+      ),
+      title: Text('식단 추가하기', style: TextStyle(color: Colors.green.shade700)),
+      content: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextField(
+              controller: _foodController,
+              decoration: InputDecoration(
+                labelText: '음식 항목',
+                labelStyle: TextStyle(color: Colors.green.shade700),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.green.shade700),
+                ),
+              ),
+              keyboardType: TextInputType.text,
+            ),
+            TextField(
+              controller: _carbonEmissionController,
+              decoration: InputDecoration(
+                labelText: '탄소 배출량 (kg CO2)',
+                labelStyle: TextStyle(color: Colors.green.shade700),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.green.shade700),
+                ),
+              ),
+              keyboardType: TextInputType.number,
+            ),
+            TextField(
+              controller: _noteController,
+              decoration: InputDecoration(
+                labelText: '메모',
+                labelStyle: TextStyle(color: Colors.green.shade700),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.green.shade700),
+                ),
+              ),
+              keyboardType: TextInputType.text,
+            ),
+          ],
+        ),
+      ),
+      actions: [
+        TextButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          child: Text('취소', style: TextStyle(color: Colors.red.shade700)),
+        ),
+        ElevatedButton(
+          onPressed: () {
+            final food = _foodController.text;
+            final carbonEmission = double.tryParse(_carbonEmissionController.text) ?? 0.0;
+            final note = _noteController.text;
+            widget.onAddEntry(food, carbonEmission, note);
+            Navigator.of(context).pop();
+          },
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.green.shade700,
+          ),
+          child: Text('추가'),
+        ),
+      ],
+    );
+  }
+}
+
+
+
+1) 색감을 초록색으로 통일해서 친환경 다움을 강조..
+2) 단순 식단 추가 기능 및 탄소배출량 기입하는 칸 구성 
+-> 어떤 재료인지에 따라서 탄소 배출량이 얼마인지 계산하는 api 필요..
+-> 포인트 기능 및 추가적인 백엔드 구현 필요..
