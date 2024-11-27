@@ -40,17 +40,16 @@
 
 ### 2.상세설계
 #### 2.1. 시스템 구성도
-<img width="600px" alt="시스템 구성도" src="https://github.com/pnuswedu/SW-Hackathon-2024/assets/34933690/f0e7c7ed-deb1-47ee-8090-32f712fa2b23">
+
 <br/>
 
 #### 2.3. 사용기술
 | 이름                  | 버전    |
 |:---------------------:|:-------:|
-| Python                | 3.8.0   |
-| Django                | 3.2.9   |
-| Django Rest Framework | 3.12.0  |
-| Node.js               | 16.16.0 |
-| Vue.js                | 2.5.13  |
+| Flutter               | 3.24    |
+| Firebase              | ------- |
+| Node.js               | 22.11.0 |
+
 <br/>
 
 
@@ -58,24 +57,18 @@
 [코딩역량강화플랫폼 Online Judge](http://10.125.121.115:8080/)를 예시로 작성하였습니다.
 #### 3.1. 전체시스템 흐름도
 - 유저 플로우 차트
-  > 코딩 역량강화 플랫폼의 회원가입 부분만 작성했습니다. <br/>
-  > 사용자의 행동 흐름을 도식화하여 보여줍니다.
-  <img width="400px" alt="유저 플로우 차트" src="https://github.com/pnuswedu/SW-Hackathon-2024/assets/34933690/c8de7c98-efd8-4f64-a39a-720faabccd78" />
+  사용자가 플랫폼에 가입하고 탄소 배출량 계산부터 포인트 적립 및 친환경 제품 교환까지의 과정을 시각적으로 표현합니다.<br/>
 
 - 테스크 플로우 차트
-  > 코딩 역량강화 플랫폼의 로그인 부분만 작성했습니다. <br/>
-  > 주요 테스크의 프로세스를 도식화하여 보여줍니다.
-  <img width="400px" alt="테스크 플로우 차트" src="https://github.com/pnuswedu/SW-Hackathon-2024/assets/34933690/b83502a9-032d-4453-8687-428d54643610" />
+  사용자가 탄소 배출량을 계산하거나 친환경 제품 교환 과정을 진행할 때의 주요 작업 흐름을 시각화합니다.<br/>
 
 - 시스템 플로우 차트
-  > 코딩 역량강화 플랫폼의 로그인 부분만 작성했습니다. <br/>
-  > 테스크의 흐름에 따른 데이터 처리를 도식화하여 보여줍니다.
-  <img width="600px" alt="시스템 플로우 차트" src="https://github.com/pnuswedu/SW-Hackathon-2024/assets/34933690/1bfb66f0-446c-4450-8a81-a78bfe5ac9ce" />
+  데이터가 사용자의 행동과 서버 간 어떻게 처리되고 전달되는지 보여줍니다.<br/>
 
   
 - IA(Information Architecture)
-  > 정보나 시스템의 구조를 도식화하여 보여줍니다. <br/>
-  <img width="600px" alt="IA" src="https://github.com/pnuswedu/SW-Hackathon-2024/assets/34933690/07d842fe-fb73-4079-97a3-58b2495ff331" />
+  정보 및 시스템의 계층 구조를 도식화하여 사용자가 쉽게 이해할 수 있도록 설계합니다.<br/>
+
 
 <br/>
 
@@ -158,16 +151,15 @@ $ npm run dev
 
 
 ### 5. 소개 및 시연영상
-[<img width="700px" alt="소개 및 시연영상" src="https://github.com/pnuswedu/SW-Hackathon-2024/assets/34933690/162132cd-9af5-4154-9b9a-41c96cf5e8fd" />](https://www.youtube.com/watch?v=EfEgTrm5_u4)
+
 
 <br/>
 
 ### 6. 팀 소개
-| MEMBER1 | MEMBER2 | MEMBER3 |
-|:-------:|:-------:|:-------:|
-|<img width="100px" alt="MEMBER1" src="https://github.com/pnuswedu/SW-Hackathon-2024/assets/34933690/f5b5df2a-e174-437d-86b2-a5a23d9ee75d" /> | <img width="100px" alt="MEMBER2" src="https://github.com/pnuswedu/SW-Hackathon-2024/assets/34933690/fe4e8910-4565-4f3f-9bd1-f135e74cb39d" /> | <img width="100px" alt="MEMBER3" src="https://github.com/pnuswedu/SW-Hackathon-2024/assets/34933690/675d8471-19b9-4abc-bf8a-be426989b318" /> |
-| member1@pusan.ac.kr | member2@gmail.com | member3@naver.com |
-| 프론트앤드 개발 | 인프라 구축 <br/> 백앤드 개발 | DB 설계 <br/> 백앤드 개발 |
+| MEMBER1 | MEMBER2 | MEMBER3 | MEMBER4 |
+|  전동훈  |  김민찬 |  이영민  | 임도균  |
+| member1@pusan.ac.kr | member2@gmail.com | member3@naver.com | member4@pusan.ac.kr|
+| 프론트앤드 개발 | 인프라 구축 <br/> 백앤드 개발 | DB 설계 <br/> 백앤드 개발 |  
 
 
 <br/>
